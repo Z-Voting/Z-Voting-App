@@ -50,27 +50,5 @@ public class MainActivity extends AppCompatActivity {
         pagesubtitle.startAnimation(atgtwo);
 
         btnguide.startAnimation(atgthree);
-
-        // import font
-        Typeface MLight = Typeface.createFromAsset(getAssets(), "fonts/ML.ttf");
-        Typeface MMedium = Typeface.createFromAsset(getAssets(), "fonts/MM.ttf");
-        Typeface MRegular = Typeface.createFromAsset(getAssets(), "fonts/MR.ttf");
-
-
-        // customize font
-        nameuser.setTypeface(MMedium);
-        walletuser.setTypeface(MLight);
-
-        mainmenus.setTypeface(MRegular);
-
-        review.setTypeface(MMedium);
-        plugins.setTypeface(MMedium);
-        network.setTypeface(MMedium);
-        myapps.setTypeface(MMedium);
-
-        btnguide.setTypeface(MMedium);
-
-        pagetitle.setTypeface(MRegular);
-        pagesubtitle.setTypeface(MLight);
     }
 }

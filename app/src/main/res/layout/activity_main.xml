@@ -38,6 +38,7 @@
         android:layout_marginTop="32dp"
         android:text="Angga Risky"
         android:textColor="#FFF"
+        android:fontFamily="@font/mr"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -49,6 +50,7 @@
         android:layout_marginStart="17dp"
         android:layout_marginTop="8dp"
         android:text="USD Wallet"
+        android:fontFamily="@font/ml"
         android:textColor="#FFF"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -76,6 +78,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Main Menus"
+            android:fontFamily="@font/mr"
             android:textColor="#818181"
             android:textSize="16sp" />
 
@@ -103,6 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Review"
+                    android:fontFamily="@font/mm"
                     android:textColor="#172646"
                     android:textSize="16sp" />
 
@@ -126,6 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Network"
+                    android:fontFamily="@font/mm"
                     android:textColor="#172646"
                     android:textSize="16sp" />
 
@@ -149,6 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Plugins"
+                    android:fontFamily="@font/mm"
                     android:textColor="#172646"
                     android:textSize="16sp" />
 
@@ -172,6 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Apps"
+                    android:fontFamily="@font/mm"
                     android:textColor="#172646"
                     android:textSize="16sp" />
 
@@ -204,6 +211,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:text="Need a Guide?"
+        android:fontFamily="@font/mm"
         android:textColor="#172646"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -217,6 +225,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:fontFamily="@font/ml"
         android:layout_marginTop="8dp"
         android:text="We will give directions \nto the new user"
         android:textAlignment="center"
@@ -236,6 +245,7 @@
         android:layout_marginTop="16dp"
         android:textSize="20sp"
         android:textColor="#FFF"
+        android:fontFamily="@font/mm"
         android:text="Guide Me"
         android:textAllCaps="false"
         android:background="@drawable/bgbtnguide"
