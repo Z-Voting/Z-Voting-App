@@ -1,8 +1,10 @@
 package com.example.anggarisky.fidashboard;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -42,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
         pagesubtitle = findViewById(R.id.pagesubtitle);
 
         btnguide = findViewById(R.id.btnguide);
+
+        btnguide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent a = new Intent(MainActivity.this,PackageAct.class);
+                startActivity(a);
+            }
+        });
 
         // pass an animation
         imageView3.startAnimation(atg);
