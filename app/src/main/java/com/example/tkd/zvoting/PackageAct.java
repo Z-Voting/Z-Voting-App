@@ -1,6 +1,6 @@
-package com.example.anggarisky.fidashboard;
+package com.example.tkd.zvoting;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;

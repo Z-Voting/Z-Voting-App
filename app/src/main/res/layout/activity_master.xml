@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F9FBFF"
-    tools:context=".MainActivity">
+    tools:context=".MasterActivity">
 
 
     <View
@@ -26,9 +26,9 @@
         android:layout_height="71dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="26dp"
-        android:src="@drawable/userpic"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icguide" />
 
     <TextView
         android:id="@+id/nameuser"
@@ -59,28 +59,17 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="182dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp"
         android:background="@drawable/bgmenus"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2">
-
-        <TextView
-            android:id="@+id/mainmenus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Main Menus"
-            android:fontFamily="@font/mr"
-            android:textColor="#818181"
-            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,6 +78,7 @@
             android:weightSum="4">
 
             <LinearLayout
+                android:id="@+id/linkElections"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -96,23 +86,25 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/electionsIcon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginBottom="8dp"
                     android:src="@drawable/iclist" />
 
                 <TextView
-                    android:id="@+id/review"
+                    android:id="@+id/electionsText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Review"
                     android:fontFamily="@font/mm"
+                    android:text="Elections"
                     android:textColor="#172646"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linkMyElections"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -120,23 +112,25 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/myElectionsIcon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginBottom="8dp"
                     android:src="@drawable/icnet" />
 
                 <TextView
-                    android:id="@+id/network"
+                    android:id="@+id/myElectionsText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Network"
                     android:fontFamily="@font/mm"
+                    android:text="My Elections"
                     android:textColor="#172646"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linkElectionResult"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -144,23 +138,26 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/ElectionResultIcon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginBottom="8dp"
                     android:src="@drawable/icplug" />
 
                 <TextView
-                    android:id="@+id/plugins"
+                    android:id="@+id/electionResultText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Plugins"
                     android:fontFamily="@font/mm"
+                    android:text="Results"
+                    android:textAlignment="center"
                     android:textColor="#172646"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linkLogout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -168,19 +165,20 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/logoutIcon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginBottom="8dp"
-                    android:src="@drawable/icapps" />
+                    app:srcCompat="@drawable/ic_log_out" />
 
                 <TextView
-                    android:id="@+id/myapps"
+                    android:id="@+id/logoutText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Apps"
                     android:fontFamily="@font/mm"
-                    android:textColor="#172646"
-                    android:textSize="16sp" />
+                    android:text="Sign out"
+                    android:textColor="#310B57"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -188,69 +186,15 @@
 
     </LinearLayout>
 
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="154dp"
-        android:layout_height="154dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:src="@drawable/icguide"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-
-    <TextView
-        android:id="@+id/pagetitle"
-        android:layout_width="wrap_content"
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.tkd.zvoting.EmptyFragment"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:text="Need a Guide?"
-        android:fontFamily="@font/mm"
-        android:textColor="#172646"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-    <TextView
-        android:id="@+id/pagesubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/ml"
-        android:layout_marginTop="8dp"
-        android:text="We will give directions \nto the new user"
-        android:textAlignment="center"
-        android:textColor="#A1A1A1"
-        android:textSize="16sp"
-        android:lineSpacingExtra="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pagetitle" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        tools:layout="@layout/empty_fragment" />
 
-    <Button
-        android:id="@+id/btnguide"
-        android:layout_width="194dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:textSize="20sp"
-        android:textColor="#FFF"
-        android:fontFamily="@font/mm"
-        android:text="Guide Me"
-        android:textAllCaps="false"
-        android:background="@drawable/bgbtnguide"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pagesubtitle" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
