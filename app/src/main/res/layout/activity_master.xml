@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/mm"
-                    android:text="Results"
+                    android:text="Operations"
                     android:textAlignment="center"
                     android:textColor="#172646"
                     android:textSize="14sp" />
