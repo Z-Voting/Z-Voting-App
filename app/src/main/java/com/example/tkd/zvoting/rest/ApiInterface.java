@@ -1,5 +1,6 @@
 package com.example.tkd.zvoting.rest;
 
+import com.example.tkd.zvoting.model.Candidate;
 import com.example.tkd.zvoting.model.Election;
 import com.example.tkd.zvoting.model.ResponseMessage;
 
@@ -21,4 +22,6 @@ public interface ApiInterface {
     @POST("/registerVoter")
     Call<ResponseMessage> registerVoter(@Body AddVoterRequest addVoterRequest);
 
+    @POST("/getCandidates")
+    Call<List<Candidate>> getCandidates(@Body GetCandidatesRequest getCandidatesRequest);
 }

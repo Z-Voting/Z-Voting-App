@@ -39,7 +39,7 @@ class ElectionListAdapter extends RecyclerView.Adapter<ElectionListAdapter.ViewH
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             v = itemView;
-            electionNameTxt = v.findViewById(R.id.electionName);
+            electionNameTxt = v.findViewById(R.id.txtElectionName);
             btnAddCandidate = v.findViewById(R.id.btnAddCandidate);
             btnAddVoter = v.findViewById(R.id.btnAddVoter);
         }
@@ -54,7 +54,6 @@ class ElectionListAdapter extends RecyclerView.Adapter<ElectionListAdapter.ViewH
     View clickedView;
     DatabaseReference db;
     FirebaseAuth firebaseAuth;
-    int pos;
 
     public ElectionListAdapter(Fragment context, ArrayList<Election> elections, User user) {
         this.context = context;
@@ -74,7 +73,6 @@ class ElectionListAdapter extends RecyclerView.Adapter<ElectionListAdapter.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        pos = position;
         Election election = elections.get(position);
         holder.electionNameTxt.setText(election.getName());
 
@@ -83,10 +81,10 @@ class ElectionListAdapter extends RecyclerView.Adapter<ElectionListAdapter.ViewH
             clickedView = v;
 
             if (firebaseAuth.getUid() != null)
-                db.child("ownElection").child(firebaseAuth.getUid()).child(elections.get(pos).getId()).setValue(elections.get(pos));
+                db.child("ownElection").child(firebaseAuth.getUid()).child(elections.get(position).getId()).setValue(elections.get(position));
 
             String imgAddress = "https://i7.pngguru.com/preview/1001/200/876/voting-election-computer-icons-electoral-symbol-politics-politics.jpg";
-            addCandidateRequest = new AddCandidateRequest(user.name, user.name, imgAddress, elections.get(pos).getId());
+            addCandidateRequest = new AddCandidateRequest(user.name, user.name, imgAddress, elections.get(position).getId());
 
             Call<ResponseMessage> responseMessageCall = apiInterface.addCandidate(addCandidateRequest);
             responseMessageCall.enqueue(new Callback<ResponseMessage>() {
@@ -118,9 +116,9 @@ class ElectionListAdapter extends RecyclerView.Adapter<ElectionListAdapter.ViewH
 
 
             if (firebaseAuth.getUid() != null)
-                db.child("ownElection").child(firebaseAuth.getUid()).child(elections.get(pos).getId()).setValue(elections.get(pos));
+                db.child("ownElection").child(firebaseAuth.getUid()).child(elections.get(position).getId()).setValue(elections.get(position));
 
-            AddVoterRequest addVoterRequest = new AddVoterRequest(user.name, user.email, v1, v2, v3, elections.get(pos).getId());
+            AddVoterRequest addVoterRequest = new AddVoterRequest(user.name, user.email, v1, v2, v3, elections.get(position).getId());
 
             Call<ResponseMessage> responseMessageCall = apiInterface.registerVoter(addVoterRequest);
             responseMessageCall.enqueue(new Callback<ResponseMessage>() {

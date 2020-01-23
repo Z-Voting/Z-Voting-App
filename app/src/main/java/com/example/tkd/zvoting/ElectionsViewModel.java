@@ -1,6 +1,7 @@
 package com.example.tkd.zvoting;
 
 import android.app.Application;
+import android.os.CountDownTimer;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -50,5 +51,18 @@ public class ElectionsViewModel extends AndroidViewModel {
                 Log.e("TKD", "Error: " + t);
             }
         });
+
+        new CountDownTimer(10000, 5000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                getElections();
+            }
+        }.start();
     }
 }
