@@ -28,4 +28,10 @@ public interface ApiInterface {
 
     @POST("/getLoginChallenge")
     Call<LoginChallenge> getLoginChallenge();
+
+    @POST("/voterLogin")
+    Call<LoginResponse> voterLogin(@Body VoterLoginRequest voterLoginRequest);
+
+    @POST("/castVote")
+    Call<CastVoteResponse> castVote(@Body CastVoteRequest castVoteRequest);
 }

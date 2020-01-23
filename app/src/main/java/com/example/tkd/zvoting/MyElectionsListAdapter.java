@@ -2,6 +2,7 @@ package com.example.tkd.zvoting;
 
 import android.app.Dialog;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +22,20 @@ import com.example.tkd.zvoting.model.User;
 import com.example.tkd.zvoting.rest.AddCandidateRequest;
 import com.example.tkd.zvoting.rest.ApiClient;
 import com.example.tkd.zvoting.rest.ApiInterface;
+import com.example.tkd.zvoting.rest.CastVoteRequest;
+import com.example.tkd.zvoting.rest.CastVoteResponse;
 import com.example.tkd.zvoting.rest.GetCandidatesRequest;
+import com.example.tkd.zvoting.rest.LoginResponse;
+import com.example.tkd.zvoting.rest.VoterLoginRequest;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -88,14 +96,14 @@ class MyElectionsListAdapter extends RecyclerView.Adapter<MyElectionsListAdapter
                 (dialogInterface, which) -> {
                     checkedItem = which;
                 });
-        dialogBuilder.setPositiveButton("Vote Now", (dialog, which) -> castVote());
+        dialogBuilder.setPositiveButton("Vote Now", (dialog, which) -> castVote(new Election()));
         dialogBuilder.setNegativeButton("Cancel", (dialog, which) -> cancelDialog());
 
         alertDialog = dialogBuilder.create();
         alertDialog.show();
     }
 
-    private void displayVoteDialog(ArrayList<Candidate> data) {
+    private void displayVoteDialog(ArrayList<Candidate> data, Election election) {
         String[] names = new String[data.size()];
         for (int i = 0; i < data.size(); i++) {
             names[i] = data.get(i).getName();
@@ -110,7 +118,7 @@ class MyElectionsListAdapter extends RecyclerView.Adapter<MyElectionsListAdapter
                 (dialogInterface, which) -> {
                     checkedItem = which;
                 });
-        dialogBuilder.setPositiveButton("Vote Now", (dialog, which) -> castVote());
+        dialogBuilder.setPositiveButton("Vote Now", (dialog, which) -> castVote(election));
         dialogBuilder.setNegativeButton("Cancel", (dialog, which) -> cancelDialog());
 
         alertDialog = dialogBuilder.create();
@@ -121,7 +129,14 @@ class MyElectionsListAdapter extends RecyclerView.Adapter<MyElectionsListAdapter
         //Toast.makeText(context.getActivity(), "You selected: " + candidateData[checkedItem], Toast.LENGTH_SHORT).show();
     }
 
-    private void castVote() {
+    long bigmod(long base, long power, long n) {
+        if (power == 0) return 1 % n;
+        if (power % 2 == 1) return (base * bigmod(base, power - 1, n)) % n;
+        long rt = bigmod(base, power / 2, n);
+        return (rt * rt) % n;
+    }
+
+    private void castVote(Election election) {
         apiInterface.getLoginChallenge().enqueue(new Callback<LoginChallenge>() {
             @Override
             public void onResponse(Call<LoginChallenge> call, Response<LoginChallenge> response) {
@@ -130,6 +145,67 @@ class MyElectionsListAdapter extends RecyclerView.Adapter<MyElectionsListAdapter
                 long a2 = loginChallenge.getA2();
                 long a3 = loginChallenge.getA3();
 
+                long n = DataViewModel.n;
+
+                User user = mDataViewModel.liveUser.getValue();
+
+                String email = user.email;
+
+                long r = new Random(System.currentTimeMillis()).nextLong();
+                r %= n;
+
+                long x = (r * r) % n;
+
+                long s1 = Long.parseLong(user.s1), s2 = Long.parseLong(user.s2), s3 = Long.parseLong(user.s3);
+                s1 %= n;
+                s2 %= n;
+                s3 %= n;
+
+                long v1 = (s1 * s1) % n, v2 = (s2 * s2) % n, v3 = (s3 * s3) % n;
+
+                long y1 = r;
+                y1 *= bigmod(s1, a1, n);
+                y1 %= n;
+                y1 *= bigmod(s2, a2, n);
+                y1 %= n;
+                y1 *= bigmod(s3, a3, n);
+                y1 %= n;
+
+                VoterLoginRequest voterLoginRequest;
+                voterLoginRequest = new VoterLoginRequest(email, x, a1, a2, a3, v1, v2, v3, y1);
+
+                apiInterface.voterLogin(voterLoginRequest).enqueue(new Callback<LoginResponse>() {
+                    @Override
+                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                        Log.e("TKD", "LOGIN SUCCESSFUL");
+
+                        Gson gson = new Gson();
+
+                        int[] voteContent = new int[candidateData.length];
+                        voteContent[checkedItem] = 1;
+
+                        Log.e("TKD", gson.toJson(voteContent));
+
+                        CastVoteRequest castVoteRequest = new CastVoteRequest(user.email, election.getId(), gson.toJson(voteContent));
+                        apiInterface.castVote(castVoteRequest).enqueue(new Callback<CastVoteResponse>() {
+                            @Override
+                            public void onResponse(Call<CastVoteResponse> call, Response<CastVoteResponse> response) {
+                                if (response.body().getStatus().equals("Successful"))
+                                    Snackbar.make(clickedView, "Vote Cast Successful", Snackbar.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<CastVoteResponse> call, Throwable t) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<LoginResponse> call, Throwable t) {
+
+                    }
+                });
 
             }
 
@@ -155,6 +231,7 @@ class MyElectionsListAdapter extends RecyclerView.Adapter<MyElectionsListAdapter
 
 
         holder.btnVote.setOnClickListener(v -> {
+            clickedView = v;
             if (election.isOver()) {
                 String[] arr = {"baal", "saal", "maal"};
                 displayResultDialog(arr);
@@ -165,7 +242,7 @@ class MyElectionsListAdapter extends RecyclerView.Adapter<MyElectionsListAdapter
                     @Override
                     public void onResponse(Call<List<Candidate>> call, Response<List<Candidate>> response) {
                         ArrayList<Candidate> candidates = new ArrayList<>(response.body());
-                        displayVoteDialog(candidates);
+                        displayVoteDialog(candidates, election);
                     }
 
                     @Override
@@ -190,7 +267,7 @@ class MyElectionsListAdapter extends RecyclerView.Adapter<MyElectionsListAdapter
         }
 
         if (election.isRunning()) {
-            holder.btnVote.setText("Result");
+            holder.btnVote.setText("Vote Now");
             holder.btnVote.setEnabled(true);
             final TextView electionStatus = holder.txtElectionStatus;
             String statusTxt = "Election Running...";
