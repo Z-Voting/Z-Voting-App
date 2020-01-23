@@ -2,6 +2,7 @@ package com.example.tkd.zvoting.rest;
 
 import com.example.tkd.zvoting.model.Candidate;
 import com.example.tkd.zvoting.model.Election;
+import com.example.tkd.zvoting.model.LoginChallenge;
 import com.example.tkd.zvoting.model.ResponseMessage;
 
 import java.util.List;
@@ -24,4 +25,7 @@ public interface ApiInterface {
 
     @POST("/getCandidates")
     Call<List<Candidate>> getCandidates(@Body GetCandidatesRequest getCandidatesRequest);
+
+    @POST("/getLoginChallenge")
+    Call<LoginChallenge> getLoginChallenge();
 }
