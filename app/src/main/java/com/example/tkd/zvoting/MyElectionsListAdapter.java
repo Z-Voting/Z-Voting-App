@@ -89,11 +89,34 @@ class MyElectionsListAdapter extends RecyclerView.Adapter<MyElectionsListAdapter
         }
 
         if(election.isRunning()) {
-            holder.btnVote.setText("Vote Now");
+            holder.btnVote.setText("Result");
             holder.btnVote.setEnabled(true);
-
+            final TextView electionStatus = holder.txtElectionStatus;
             String statusTxt = "Election Running...";
-            holder.txtElectionStatus.setText(statusTxt);
+            electionStatus.setText(statusTxt);
+
+
+            long timeRemaining = election.getRemainingTime();
+
+            new CountDownTimer(timeRemaining*1000,1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    long seconds = millisUntilFinished/1000;
+
+                    int day = (int)TimeUnit.SECONDS.toDays(seconds);
+                    long hours = TimeUnit.SECONDS.toHours(seconds) - (day *24);
+                    long minute = TimeUnit.SECONDS.toMinutes(seconds) - (TimeUnit.SECONDS.toHours(seconds)* 60);
+                    long second = TimeUnit.SECONDS.toSeconds(seconds) - (TimeUnit.SECONDS.toMinutes(seconds) *60);
+
+                    String statusTxt = "Election Running. " + day + " days " + hours + ":" + minute + ":" + second + " remaining";
+
+                    electionStatus.setText(statusTxt);
+                }
+                @Override
+                public void onFinish() {
+                    electionStatus.setText("Finished");
+                }
+            }.start();
         }
     }
 

@@ -70,7 +70,7 @@ public class MyElectionsViewModel extends AndroidViewModel {
 
                 liveMyElectionIds.setValue(myElectionIds);
 
-                if (liveElections.getValue() != null && liveElections.getValue().size()>0) {
+                if (liveElections.getValue() != null && liveElections.getValue().size() > 0) {
                     ArrayList<Election> myElections = new ArrayList<>();
 
                     for (Election election : liveElections.getValue()) {
@@ -121,9 +121,13 @@ public class MyElectionsViewModel extends AndroidViewModel {
                 ArrayList<Election> elections = new ArrayList<>();
                 elections.addAll(body);
 
-                liveElections.setValue(elections);
+                if (!elections.equals(liveElections.getValue())) {
+                    liveElections.setValue(elections);
+                }
 
-                if(liveMyElectionIds.getValue()!=null && liveMyElectionIds.getValue().size()>0) {
+
+
+                if (liveMyElectionIds.getValue() != null && liveMyElectionIds.getValue().size() > 0) {
                     ArrayList<String> myElectionIds = liveMyElectionIds.getValue();
                     ArrayList<Election> myElections = new ArrayList<>();
 
@@ -143,7 +147,7 @@ public class MyElectionsViewModel extends AndroidViewModel {
             }
         });
 
-        new CountDownTimer(2000, 1000) {
+        new CountDownTimer(10000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
