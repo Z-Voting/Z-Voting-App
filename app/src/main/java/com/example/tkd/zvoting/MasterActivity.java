@@ -86,9 +86,9 @@ public class MasterActivity extends AppCompatActivity implements ElectionResults
             @Override
             public void onChanged(String s) {
                 Log.e("TKD", s);
-                electionsText.setTypeface(null, (s.equals(DataViewModel.ElectionsFragment)? Typeface.BOLD_ITALIC:Typeface.NORMAL));
-                myElectionsText.setTypeface(null, (s.equals(DataViewModel.MyElectionsFragment)? Typeface.BOLD_ITALIC:Typeface.NORMAL));
-                electionResultsText.setTypeface(null, (s.equals(DataViewModel.ElectionResultsFragment)? Typeface.BOLD_ITALIC:Typeface.NORMAL));
+                electionsText.setTypeface(null, (s.equals(DataViewModel.ElectionsFragment)? Typeface.BOLD:Typeface.NORMAL));
+                myElectionsText.setTypeface(null, (s.equals(DataViewModel.MyElectionsFragment)? Typeface.BOLD:Typeface.NORMAL));
+                electionResultsText.setTypeface(null, (s.equals(DataViewModel.ElectionResultsFragment)? Typeface.BOLD:Typeface.NORMAL));
             }
         });
 
