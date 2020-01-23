@@ -35,6 +35,11 @@ class DataViewModelFactory implements ViewModelProvider.Factory {
 
 public class DataViewModel extends AndroidViewModel {
 
+    public static long n = 1000000007;
+    public static String URL="http://52.191.210.249:3000";
+    public static String MyElectionsFragment="MyElectionsFragment";
+    public static String ElectionResultsFragment="ElectionResultsFragment";
+    public static String ElectionsFragment="ElectionsFragment";
     public String userEmailStr;
     public String userNameStr;
     public FirebaseAuth firebaseAuth;
@@ -70,7 +75,8 @@ public class DataViewModel extends AndroidViewModel {
                     databaseReference.child("user").child(uid).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            liveUser.setValue( (User) dataSnapshot.getValue(User.class) );
+                            User user = (User) dataSnapshot.getValue(User.class);
+                            liveUser.setValue( user );
                             Log.e("TKD", "USER FOUND");
                         }
 

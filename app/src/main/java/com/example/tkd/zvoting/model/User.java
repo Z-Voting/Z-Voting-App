@@ -3,9 +3,9 @@ package com.example.tkd.zvoting.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    public String Name;
-    public String Email;
-    public String S1, S2, S3;
+    public String name;
+    public String email;
+    public String s1, s2, s3;
 
     public User() {
 
@@ -13,7 +13,7 @@ public class User implements Serializable {
 
 
     public User(String name, String email) {
-        this.Name = name;
-        this.Email = email;
+        this.name = name;
+        this.email = email;
     }
 }

@@ -10,7 +10,6 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.tkd.zvoting.model.User;
@@ -90,12 +89,12 @@ public class RegisterFragment extends Fragment {
                 public void onSuccess(AuthResult authResult) {
                     String uid = authResult.getUser().getUid();
                     User user = new User(name, email);
-                    user.S1 = ( String.valueOf((uid+"1").hashCode()).replaceAll("-", "1") );
-                    user.S2 = ( String.valueOf((uid+"2").hashCode()).replaceAll("-", "2") );
-                    user.S3 = ( String.valueOf((uid+"3").hashCode()).replaceAll("-","3") );
+                    user.s1 = ( String.valueOf((uid+"1").hashCode()).replaceAll("-", "1") );
+                    user.s2 = ( String.valueOf((uid+"2").hashCode()).replaceAll("-", "2") );
+                    user.s3 = ( String.valueOf((uid+"3").hashCode()).replaceAll("-","3") );
 
                     db = FirebaseDatabase.getInstance().getReference();
-                    db.child("liveUser").child(uid).setValue(user);
+                    db.child("user").child(uid).setValue(user);
                 }
             });
 
