@@ -38,4 +38,10 @@ public interface ApiInterface {
 
     @POST("/calculateResult")
     Call<ElectionResult> calculateResult(@Body CalculateResultRequest calculateResultRequest);
+
+    @POST("/createElection")
+    Call<CreateElectionResponse> createElection(@Body CreateElectionRequest createElectionRequest);
+
+    @POST("/startElection")
+    Call<StartElectionResponse> startElection(@Body StartElectionRequest startElectionRequest);
 }
