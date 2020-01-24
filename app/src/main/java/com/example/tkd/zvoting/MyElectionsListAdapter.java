@@ -1,6 +1,7 @@
 package com.example.tkd.zvoting;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,11 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tkd.zvoting.model.Candidate;
 import com.example.tkd.zvoting.model.Election;
+import com.example.tkd.zvoting.model.ElectionResult;
 import com.example.tkd.zvoting.model.LoginChallenge;
 import com.example.tkd.zvoting.model.User;
 import com.example.tkd.zvoting.rest.AddCandidateRequest;
 import com.example.tkd.zvoting.rest.ApiClient;
 import com.example.tkd.zvoting.rest.ApiInterface;
+import com.example.tkd.zvoting.rest.CalculateResultRequest;
 import com.example.tkd.zvoting.rest.CastVoteRequest;
 import com.example.tkd.zvoting.rest.CastVoteResponse;
 import com.example.tkd.zvoting.rest.GetCandidatesRequest;
@@ -43,6 +46,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 class MyElectionsListAdapter extends RecyclerView.Adapter<MyElectionsListAdapter.ViewHolder> {
+
+    private ElectionResult electionResult;
 
     class ViewHolder extends RecyclerView.ViewHolder {
         View v;
@@ -85,19 +90,28 @@ class MyElectionsListAdapter extends RecyclerView.Adapter<MyElectionsListAdapter
     Dialog alertDialog = null;
 
 
-    private void displayResultDialog(String[] data) {
-        candidateData = data;
+    private void displayResultDialog(ElectionResult data) {
+
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context.getActivity());
 
-        dialogBuilder.setTitle("Whom do you want to vote for?");
+        dialogBuilder.setTitle("Here is the election result");
 
-        dialogBuilder.setSingleChoiceItems(candidateData, checkedItem,
-                (dialogInterface, which) -> {
-                    checkedItem = which;
-                });
-        dialogBuilder.setPositiveButton("Vote Now", (dialog, which) -> castVote(new Election()));
-        dialogBuilder.setNegativeButton("Cancel", (dialog, which) -> cancelDialog());
+        String[] results = new String[data.getCandidates().size()];
+        for (int i = 0; i < results.length; i++) {
+            results[i] = data.getCandidates().get(i).getName() + " got " + data.getValues().get(i) + " votes.";
+        }
+
+        dialogBuilder.setItems(results, (dialog, which) -> {
+
+        });
+
+        Log.e("TKD", "total candidates: " + results.length);
+
+        dialogBuilder.setPositiveButton("ok", (dialog, which) -> {
+        });
+        dialogBuilder.setNegativeButton("Cancel", (dialog, which) -> {
+        });
 
         alertDialog = dialogBuilder.create();
         alertDialog.show();
@@ -233,8 +247,18 @@ class MyElectionsListAdapter extends RecyclerView.Adapter<MyElectionsListAdapter
         holder.btnVote.setOnClickListener(v -> {
             clickedView = v;
             if (election.isOver()) {
-                String[] arr = {"baal", "saal", "maal"};
-                displayResultDialog(arr);
+                apiInterface.calculateResult(new CalculateResultRequest(election.getId())).enqueue(new Callback<ElectionResult>() {
+                    @Override
+                    public void onResponse(Call<ElectionResult> call, Response<ElectionResult> response) {
+                        electionResult = response.body();
+                        displayResultDialog(electionResult);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ElectionResult> call, Throwable t) {
+
+                    }
+                });
             } else if (election.isRunning()) {
 
                 Call<List<Candidate>> call = apiInterface.getCandidates(new GetCandidatesRequest(election.getId()));

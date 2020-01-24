@@ -122,7 +122,7 @@ public class MasterActivity extends AppCompatActivity implements ElectionResults
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(ElectionsFragment.newInstance());
         fragments.add(MyElectionsFragment.newInstance());
-        fragments.add(ElectionResultsFragment.newInstance(2));
+        fragments.add(OperationsFragment.newInstance());
         return fragments;
     }
 

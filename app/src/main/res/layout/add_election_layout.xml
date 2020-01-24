@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@drawable/bgheader"
+        android:contentDescription="@string/app_name"
+        android:scaleType="center"
+        android:src="@drawable/icguide" />
+
+    <EditText
+        android:id="@+id/editElectionName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Election Name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editElectionDuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Election Duration"
+        android:inputType="time" />
+
+</LinearLayout>

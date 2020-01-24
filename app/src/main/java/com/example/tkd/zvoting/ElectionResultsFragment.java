@@ -1,23 +1,31 @@
 package com.example.tkd.zvoting;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.tkd.zvoting.dummy.DummyContent;
 import com.example.tkd.zvoting.dummy.DummyContent.DummyItem;
+import com.example.tkd.zvoting.model.ElectionResult;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
  * A fragment representing a list of Items.
@@ -33,6 +41,9 @@ public class ElectionResultsFragment extends Fragment {
     private int mColumnCount = 2;
     private OnListFragmentInteractionListener mListener;
     private ElectionResultsViewModel mViewModel;
+
+    FloatingActionButton btnAddElection;
+    AlertDialog alertDialog;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -63,7 +74,12 @@ public class ElectionResultsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        View root = inflater.inflate(R.layout.fragment_item_list, container, false);
+//        root.findViewById(R.id.btnAddElection).setOnClickListener(v->{
+//            displayAddElectionDialog();
+//        });
+
+        View view = root.findViewById(R.id.list);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -74,6 +90,8 @@ public class ElectionResultsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+
+
             recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;

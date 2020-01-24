@@ -12,17 +12,4 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAddElection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="10dp"
-        android:clickable="true"
-        android:src="@drawable/icstarter"
-        app:fabCustomSize="70dp"
-        app:fabSize="normal"
-        app:maxImageSize="40dp"
-        app:useCompatPadding="false" />
-
 </FrameLayout>

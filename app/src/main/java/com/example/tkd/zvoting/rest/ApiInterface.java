@@ -2,6 +2,7 @@ package com.example.tkd.zvoting.rest;
 
 import com.example.tkd.zvoting.model.Candidate;
 import com.example.tkd.zvoting.model.Election;
+import com.example.tkd.zvoting.model.ElectionResult;
 import com.example.tkd.zvoting.model.LoginChallenge;
 import com.example.tkd.zvoting.model.ResponseMessage;
 
@@ -34,4 +35,7 @@ public interface ApiInterface {
 
     @POST("/castVote")
     Call<CastVoteResponse> castVote(@Body CastVoteRequest castVoteRequest);
+
+    @POST("/calculateResult")
+    Call<ElectionResult> calculateResult(@Body CalculateResultRequest calculateResultRequest);
 }
